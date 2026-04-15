@@ -1,11 +1,38 @@
-<?php
-/**
- * LAS WP Headless Theme Functions
- */
-
 if (!defined('ABSPATH')) {
     exit;
 }
+
+/**
+ * Handle CORS early
+ */
+function las_wp_handle_cors_early() {
+    $allowed_origins = [
+        'https://lasbrasil.com.br',
+        'https://www.lasbrasil.com.br',
+        'https://lasforlife.com.br',
+        'https://www.lasforlife.com.br',
+        'https://las-brasil.vercel.app',
+    ];
+
+    $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+
+    if (in_array($origin, $allowed_origins)) {
+        header('Access-Control-Allow-Origin: ' . $origin);
+    } elseif ($origin) {
+        // Se houver origin mas não estiver na lista, permite temporariamente para debug ou usa *
+        header('Access-Control-Allow-Origin: *'); 
+    }
+
+    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Allow-Headers: Authorization, Content-Type, X-Requested-With');
+
+    if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        status_header(200);
+        exit();
+    }
+}
+las_wp_handle_cors_early();
 
 /**
  * Basic Theme Supports
@@ -44,14 +71,14 @@ add_filter('preview_post_link', 'las_wp_set_headless_preview_link', 10, 2);
  */
 function las_wp_frontend_redirect()
 {
-    // Bypassa admin, solicitações JSON/REST e cron
-    if (is_admin() || wp_is_json_request() || (defined('DOING_CRON') && DOING_CRON) || (defined('REST_REQUEST') && REST_REQUEST)) {
+    // NUNCA redireciona se for uma requisição de API ou houver Origin (CORS)
+    if (is_admin() || wp_is_json_request() || (defined('DOING_CRON') && DOING_CRON) || (defined('REST_REQUEST') && REST_REQUEST) || isset($_SERVER['HTTP_ORIGIN'])) {
         return;
     }
 
-    // Bypassa explicitamente o endpoint GraphQL
+    // NUNCA redireciona requisições ao log do WordPress ou GraphQL
     $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-    if (strpos($request_uri, '/graphql') !== false) {
+    if (strpos($request_uri, '/graphql') !== false || strpos($request_uri, '/wp-json') !== false) {
         return;
     }
 
@@ -73,61 +100,7 @@ function las_wp_frontend_redirect()
 }
 add_action('template_redirect', 'las_wp_frontend_redirect');
 
-/**
- * Add CORS headers for headless usage — must run early to handle OPTIONS preflight
- */
-function las_wp_cors_headers()
-{
-    $allowed_origins = [
-        'https://lasbrasil.com.br',
-        'https://www.lasbrasil.com.br',
-        'https://lasforlife.com.br',
-        'https://www.lasforlife.com.br',
-    ];
-
-    $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
-
-    if (in_array($origin, $allowed_origins)) {
-        header('Access-Control-Allow-Origin: ' . $origin);
-    } else {
-        // fallback: permite qualquer origem (pode restringir se quiser)
-        header('Access-Control-Allow-Origin: *');
-    }
-
-    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    header('Access-Control-Allow-Credentials: true');
-    header('Access-Control-Allow-Headers: Authorization, Content-Type, X-Requested-With');
-
-    // Responder imediatamente ao preflight OPTIONS
-    if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        status_header(200);
-        exit();
-    }
-}
-// Roda cedo o suficiente para interceptar o preflight
-add_action('send_headers', 'las_wp_cors_headers');
-add_action('init', 'las_wp_cors_headers');
-
-/**
- * CORS específico para o WPGraphQL
- */
-add_filter('graphql_response_headers_to_send', function ($headers) {
-    $allowed_origins = [
-        'https://lasbrasil.com.br',
-        'https://www.lasbrasil.com.br',
-        'https://lasforlife.com.br',
-        'https://www.lasforlife.com.br',
-    ];
-
-    $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
-
-    $headers['Access-Control-Allow-Origin']      = in_array($origin, $allowed_origins) ? $origin : '*';
-    $headers['Access-Control-Allow-Methods']     = 'POST, GET, OPTIONS';
-    $headers['Access-Control-Allow-Headers']     = 'Authorization, Content-Type, X-Requested-With';
-    $headers['Access-Control-Allow-Credentials'] = 'true';
-
-    return $headers;
-});
+// Os cabeçalhos CORS já são lidados no topo do arquivo.
 
 /**
  * Register Custom Post Types
