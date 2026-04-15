@@ -40,18 +40,36 @@ function las_wp_set_headless_preview_link($link, $post)
 add_filter('preview_post_link', 'las_wp_set_headless_preview_link', 10, 2);
 
 /**
- * Redirect all frontend requests to Next.js
+ * Redirect all frontend requests to Next.js (except GraphQL and Admin)
  */
 function las_wp_frontend_redirect()
 {
-    $is_graphql = defined('GRAPHQL_HTTP_REQUEST') && GRAPHQL_HTTP_REQUEST;
-    $is_graphql_uri = isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/graphql') !== false;
-
-    if (!is_admin() && !wp_is_json_request() && !defined('REST_REQUEST') && !$is_graphql && !$is_graphql_uri) {
-        $frontend_url = 'http://localhost:3000';
-        wp_redirect($frontend_url, 301);
-        exit;
+    // Bypassa admin, solicitações JSON/REST e cron
+    if (is_admin() || wp_is_json_request() || (defined('DOING_CRON') && DOING_CRON) || (defined('REST_REQUEST') && REST_REQUEST)) {
+        return;
     }
+
+    // Bypassa explicitamente o endpoint GraphQL
+    $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+    if (strpos($request_uri, '/graphql') !== false) {
+        return;
+    }
+
+    // Bypassa se for uma requisição WPGraphQL (via constante)
+    if (defined('GRAPHQL_HTTP_REQUEST') && GRAPHQL_HTTP_REQUEST) {
+        return;
+    }
+
+    // URL de produção do Next.js
+    $frontend_url = 'https://lasbrasil.com.br';
+
+    // Se estiver em ambiente local (detectado pelo host), usa localhost
+    if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], '.lndo.site') !== false) {
+        $frontend_url = 'http://localhost:3000';
+    }
+
+    wp_redirect($frontend_url, 301);
+    exit;
 }
 add_action('template_redirect', 'las_wp_frontend_redirect');
 
