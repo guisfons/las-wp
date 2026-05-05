@@ -1,9 +1,10 @@
+<?php
 if (!defined('ABSPATH')) {
     exit;
 }
 
 /**
- * Handle CORS early
+ * Handle CORS early - Versão Final Corrigida
  */
 function las_wp_handle_cors_early() {
     $allowed_origins = [
@@ -12,23 +13,27 @@ function las_wp_handle_cors_early() {
         'https://lasforlife.com.br',
         'https://www.lasforlife.com.br',
         'https://las-brasil.vercel.app',
+        'https://mediumblue-swallow-341910.hostingersite.com',
+        'http://localhost:3000',
     ];
 
     $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 
     if (in_array($origin, $allowed_origins)) {
         header('Access-Control-Allow-Origin: ' . $origin);
-    } elseif ($origin) {
-        // Se houver origin mas não estiver na lista, permite temporariamente para debug ou usa *
-        header('Access-Control-Allow-Origin: *'); 
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Allow-Headers: Authorization, Content-Type, X-Requested-With, X-WP-Nonce');
     }
 
-    header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    header('Access-Control-Allow-Credentials: true');
-    header('Access-Control-Allow-Headers: Authorization, Content-Type, X-Requested-With');
-
+    // Responder imediatamente ao preflight OPTIONS
     if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        status_header(200);
+        if (in_array($origin, $allowed_origins)) {
+            status_header(200);
+        } else {
+            // Se não for uma origem permitida, ainda assim sai, mas sem os headers de permissão
+            status_header(403);
+        }
         exit();
     }
 }
@@ -76,9 +81,14 @@ function las_wp_frontend_redirect()
         return;
     }
 
-    // NUNCA redireciona requisições ao log do WordPress ou GraphQL
+    // NUNCA redireciona requisições ao log do WordPress, GraphQL, ou arquivos de mídia
     $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-    if (strpos($request_uri, '/graphql') !== false || strpos($request_uri, '/wp-json') !== false) {
+    if (
+        strpos($request_uri, '/graphql') !== false || 
+        strpos($request_uri, '/wp-json') !== false ||
+        strpos($request_uri, '/wp-content/') !== false ||
+        strpos($request_uri, '/pdfs/') !== false
+    ) {
         return;
     }
 
