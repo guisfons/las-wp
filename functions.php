@@ -241,6 +241,72 @@ function las_wp_register_cpts()
     );
 
     register_taxonomy('categoria_evento', array('evento'), $args_cat_evento);
+
+    // ==========================================
+    // Taxonomia: Product Specialities
+    // ==========================================
+    $args_product_speciality = array(
+        'hierarchical' => true, // acts like categories
+        'labels' => array(
+            'name' => _x('Especialidades', 'taxonomy general name', 'las-wp'),
+            'singular_name' => _x('Especialidade', 'taxonomy singular name', 'las-wp'),
+            'menu_name' => __('Especialidades', 'las-wp'),
+            'all_items' => __('Todas as Especialidades', 'las-wp'),
+            'add_new_item' => __('Adicionar Nova Especialidade', 'las-wp'),
+        ),
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'especialidade'),
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'productSpeciality',
+        'graphql_plural_name' => 'productSpecialities',
+    );
+    register_taxonomy('product_speciality', array('product'), $args_product_speciality);
+
+    // ==========================================
+    // Taxonomia: Product Brands
+    // ==========================================
+    $args_product_brand = array(
+        'hierarchical' => true,
+        'labels' => array(
+            'name' => _x('Marcas', 'taxonomy general name', 'las-wp'),
+            'singular_name' => _x('Marca', 'taxonomy singular name', 'las-wp'),
+            'menu_name' => __('Marcas', 'las-wp'),
+            'all_items' => __('Todas as Marcas', 'las-wp'),
+            'add_new_item' => __('Adicionar Nova Marca', 'las-wp'),
+        ),
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'marca'),
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'productBrand',
+        'graphql_plural_name' => 'productBrands',
+    );
+    register_taxonomy('product_brand', array('product'), $args_product_brand);
+
+    // ==========================================
+    // Taxonomia: Product Tags
+    // ==========================================
+    $args_product_tag = array(
+        'hierarchical' => false, // acts like tags
+        'labels' => array(
+            'name' => _x('Tags do Produto', 'taxonomy general name', 'las-wp'),
+            'singular_name' => _x('Tag do Produto', 'taxonomy singular name', 'las-wp'),
+            'menu_name' => __('Tags do Produto', 'las-wp'),
+            'all_items' => __('Todas as Tags', 'las-wp'),
+            'add_new_item' => __('Adicionar Nova Tag', 'las-wp'),
+        ),
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'tag-produto'),
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'productTag',
+        'graphql_plural_name' => 'productTags',
+    );
+    register_taxonomy('product_tag', array('product'), $args_product_tag);
 }
 add_action('init', 'las_wp_register_cpts', 0);
 
@@ -250,7 +316,6 @@ add_action('init', 'las_wp_register_cpts', 0);
 require_once get_template_directory() . '/inc/fields-product.php';
 require_once get_template_directory() . '/inc/fields-pages.php';
 require_once get_template_directory() . '/inc/fields-eventos.php';
-require_once get_template_directory() . '/inc/fields-options.php';
 
 /**
  * Auto Create Necessary Headless Pages
