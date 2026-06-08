@@ -250,6 +250,7 @@ add_action('init', 'las_wp_register_cpts', 0);
 require_once get_template_directory() . '/inc/fields-product.php';
 require_once get_template_directory() . '/inc/fields-pages.php';
 require_once get_template_directory() . '/inc/fields-eventos.php';
+require_once get_template_directory() . '/inc/fields-options.php';
 
 /**
  * Auto Create Necessary Headless Pages
