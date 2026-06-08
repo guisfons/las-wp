@@ -19,6 +19,7 @@ if (function_exists('acf_add_local_field_group')):
                 'allow_null' => 1,
                 'multiple' => 1,
                 'ui' => 1,
+                'allow_custom' => 1,
                 'return_format' => 'value',
                 'show_in_graphql' => 1,
             ],
@@ -39,6 +40,7 @@ if (function_exists('acf_add_local_field_group')):
                 'allow_null' => 1,
                 'multiple' => 1,
                 'ui' => 1,
+                'allow_custom' => 1,
                 'return_format' => 'value',
                 'show_in_graphql' => 1,
             ],
@@ -94,6 +96,7 @@ if (function_exists('acf_add_local_field_group')):
                 'type' => 'select',
                 'multiple' => 1,
                 'ui' => 1,
+                'allow_custom' => 1,
                 'choices' => [
                     'Joelho' => 'Joelho',
                     'Quadril' => 'Quadril',
