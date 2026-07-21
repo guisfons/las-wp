@@ -307,6 +307,69 @@ function las_wp_register_cpts()
         'graphql_plural_name' => 'productTags',
     );
     register_taxonomy('product_tag', array('product'), $args_product_tag);
+
+    // ==========================================
+    // CPT: Mídia
+    // ==========================================
+    $labels_midia = array(
+        'name'               => _x('Mídias', 'post type general name', 'las-wp'),
+        'singular_name'      => _x('Mídia', 'post type singular name', 'las-wp'),
+        'menu_name'          => _x('Mídias', 'admin menu', 'las-wp'),
+        'name_admin_bar'     => _x('Mídia', 'add new on admin bar', 'las-wp'),
+        'add_new'            => _x('Adicionar Nova', 'midia', 'las-wp'),
+        'add_new_item'       => __('Adicionar Nova Mídia', 'las-wp'),
+        'new_item'           => __('Nova Mídia', 'las-wp'),
+        'edit_item'          => __('Editar Mídia', 'las-wp'),
+        'view_item'          => __('Ver Mídia', 'las-wp'),
+        'all_items'          => __('Todas as Mídias', 'las-wp'),
+        'search_items'       => __('Procurar Mídias', 'las-wp'),
+        'parent_item_colon'  => __('Mídia Pai:', 'las-wp'),
+        'not_found'          => __('Nenhuma mídia encontrada.', 'las-wp'),
+        'not_found_in_trash' => __('Nenhuma mídia encontrada na lixeira.', 'las-wp'),
+    );
+
+    $args_midia = array(
+        'labels'             => $labels_midia,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'midia'),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'menu_icon'          => 'dashicons-format-video',
+        'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'show_in_graphql'    => true,
+        'graphql_single_name' => 'midia',
+        'graphql_plural_name' => 'midias',
+    );
+
+    register_post_type('midia', $args_midia);
+
+    // ==========================================
+    // Taxonomia: Categoria de Mídia
+    // ==========================================
+    $args_cat_midia = array(
+        'hierarchical'      => true,
+        'labels'            => array(
+            'name'          => _x('Categorias de Mídia', 'taxonomy general name', 'las-wp'),
+            'singular_name' => _x('Categoria de Mídia', 'taxonomy singular name', 'las-wp'),
+            'menu_name'     => __('Categorias', 'las-wp'),
+            'all_items'     => __('Todas as Categorias', 'las-wp'),
+            'add_new_item'  => __('Adicionar Nova Categoria', 'las-wp'),
+        ),
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'categoria-midia'),
+        'show_in_graphql'   => true,
+        'graphql_single_name' => 'midiaCategoria',
+        'graphql_plural_name' => 'midiaCategorias',
+    );
+    register_taxonomy('categoria_midia', array('midia'), $args_cat_midia);
 }
 add_action('init', 'las_wp_register_cpts', 0);
 
@@ -316,6 +379,7 @@ add_action('init', 'las_wp_register_cpts', 0);
 require_once get_template_directory() . '/inc/fields-product.php';
 require_once get_template_directory() . '/inc/fields-pages.php';
 require_once get_template_directory() . '/inc/fields-eventos.php';
+require_once get_template_directory() . '/inc/fields-midia.php';
 
 /**
  * Auto Create Necessary Headless Pages
