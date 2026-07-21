@@ -444,3 +444,43 @@ function las_wp_register_acf_options_pages() {
     }
 }
 add_action('acf/init', 'las_wp_register_acf_options_pages');
+
+/**
+ * Trigger Next.js Revalidation on Post Save / ACF Save
+ */
+function las_wp_trigger_nextjs_revalidation($post_id) {
+    // Prevent triggering on autosaves or revisions
+    if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
+        return;
+    }
+
+    $frontend_url = 'https://lasbrasil.com.br';
+    
+    // Se estiver em ambiente local (detectado pelo host), usa localhost
+    if (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], '.lndo.site') !== false) {
+        $frontend_url = 'http://localhost:3000';
+    }
+
+    $revalidate_url = $frontend_url . '/api/revalidate';
+    $secret = defined('LAS_REVALIDATE_SECRET') ? LAS_REVALIDATE_SECRET : 'las_secret_1234';
+
+    $body = wp_json_encode(array(
+        'secret' => $secret,
+        'path'   => '' // empty revalidates layout (tudo)
+    ));
+
+    $args = array(
+        'body'        => $body,
+        'headers'     => array(
+            'Content-Type' => 'application/json',
+        ),
+        'timeout'     => 5,
+        'blocking'    => false, // não bloqueia o carregamento do painel WP
+    );
+
+    wp_remote_post($revalidate_url, $args);
+}
+// Trigger quando salva um post normal ou CPT
+add_action('save_post', 'las_wp_trigger_nextjs_revalidation');
+// Trigger quando salva uma Options Page do ACF (se existir)
+add_action('acf/save_post', 'las_wp_trigger_nextjs_revalidation', 20);
