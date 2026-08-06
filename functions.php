@@ -404,6 +404,12 @@ function las_wp_auto_create_pages()
         'Seja um Distribuidor' => 'seja-um-distribuidor',
         'Serviços Técnicos' => 'servicos-tecnicos',
         'Treating Disease' => 'treating-disease',
+        'LAS Sports' => 'las-sports',
+        'LAS Social' => 'las-social',
+        'LAS Clubs' => 'las-clubs',
+        'LAS Talks' => 'las-talks',
+        'LAS Xperience' => 'las-xperience',
+        'LAS Xperts' => 'las-xperts',
     );
 
     foreach ($pages_to_create as $page_title => $page_slug) {

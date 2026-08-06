@@ -345,4 +345,343 @@ if (function_exists('acf_add_local_field_group')):
     ]);
     */
 
+
+    acf_add_local_field_group([
+        'key' => 'group_las_sports_acf',
+        'title' => 'Page - LAS Sports Fields',
+        'fields' => [
+            [
+                'key' => 'field_las_sports_how',
+                'label' => 'How We Do It Today',
+                'name' => 'howWeDoItToday',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_sports_how_banner', 'label' => 'Banner', 'name' => 'banner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_sports_how_logo', 'label' => 'Logo', 'name' => 'logo', 'type' => 'image', 'return_format' => 'url'],
+                    [
+                        'key' => 'field_las_sports_how_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_sports_how_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_sports_how_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url']
+                ],
+            ],
+            [
+                'key' => 'field_las_sports_banner_las',
+                'label' => 'Banner LAS',
+                'name' => 'bannerLas',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_sports_bl_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                    [
+                        'key' => 'field_las_sports_bl_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_sports_bl_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_sports_bl_img', 'label' => 'Image', 'name' => 'imageBanner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_sports_bl_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url'],
+                    ['key' => 'field_las_sports_bl_label', 'label' => 'Label Link', 'name' => 'labelLink', 'type' => 'text'],
+                ],
+            ],
+            [
+                'key' => 'field_las_sports_sponsorship',
+                'label' => 'Sponsorship',
+                'name' => 'sponsorship',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_sports_spon_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                    [
+                        'key' => 'field_las_sports_spon_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_sports_spon_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_sports_spon_img', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_sports_spon_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url'],
+                ],
+            ]
+        ],
+        'location' => [
+            [['param' => 'page', 'operator' => '==', 'value' => las_get_page_id_by_slug('las-sports')]],
+        ],
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'pageLasSports',
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_las_social_acf',
+        'title' => 'Page - LAS Social Fields',
+        'fields' => [
+            [
+                'key' => 'field_las_social_how',
+                'label' => 'How We Do It Today',
+                'name' => 'howWeDoItToday',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_social_how_banner', 'label' => 'Banner', 'name' => 'banner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_social_how_logo', 'label' => 'Logo', 'name' => 'logo', 'type' => 'image', 'return_format' => 'url'],
+                    [
+                        'key' => 'field_las_social_how_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_social_how_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_social_how_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url']
+                ],
+            ],
+            [
+                'key' => 'field_las_social_banner_las',
+                'label' => 'Banner LAS',
+                'name' => 'bannerLas',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_social_bl_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                    [
+                        'key' => 'field_las_social_bl_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_social_bl_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_social_bl_img', 'label' => 'Image', 'name' => 'imageBanner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_social_bl_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url'],
+                    ['key' => 'field_las_social_bl_label', 'label' => 'Label Link', 'name' => 'labelLink', 'type' => 'text'],
+                ],
+            ]
+        ],
+        'location' => [
+            [['param' => 'page', 'operator' => '==', 'value' => las_get_page_id_by_slug('las-social')]],
+        ],
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'pageLasSocial',
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_las_clubs_acf',
+        'title' => 'Page - LAS Clubs Fields',
+        'fields' => [
+            [
+                'key' => 'field_las_clubs_how',
+                'label' => 'How We Do It Today',
+                'name' => 'howWeDoItToday',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_clubs_how_banner', 'label' => 'Banner', 'name' => 'banner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_clubs_how_logo', 'label' => 'Logo', 'name' => 'logo', 'type' => 'image', 'return_format' => 'url'],
+                    [
+                        'key' => 'field_las_clubs_how_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_clubs_how_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_clubs_how_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url']
+                ],
+            ],
+            [
+                'key' => 'field_las_clubs_banner_las',
+                'label' => 'Banner LAS',
+                'name' => 'bannerLas',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_clubs_bl_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                    [
+                        'key' => 'field_las_clubs_bl_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_clubs_bl_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_clubs_bl_img', 'label' => 'Image', 'name' => 'imageBanner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_clubs_bl_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url'],
+                    ['key' => 'field_las_clubs_bl_label', 'label' => 'Label Link', 'name' => 'labelLink', 'type' => 'text'],
+                ],
+            ]
+        ],
+        'location' => [
+            [['param' => 'page', 'operator' => '==', 'value' => las_get_page_id_by_slug('las-clubs')]],
+        ],
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'pageLasClubs',
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_las_talks_acf',
+        'title' => 'Page - LAS Talks Fields',
+        'fields' => [
+            [
+                'key' => 'field_las_talks_how',
+                'label' => 'How We Do It Today',
+                'name' => 'howWeDoItToday',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_talks_how_banner', 'label' => 'Banner', 'name' => 'banner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_talks_how_logo', 'label' => 'Logo', 'name' => 'logo', 'type' => 'image', 'return_format' => 'url'],
+                    [
+                        'key' => 'field_las_talks_how_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_talks_how_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_talks_how_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url']
+                ],
+            ],
+            [
+                'key' => 'field_las_talks_banner_las',
+                'label' => 'Banner LAS',
+                'name' => 'bannerLas',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_talks_bl_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                    [
+                        'key' => 'field_las_talks_bl_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_talks_bl_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_talks_bl_img', 'label' => 'Image', 'name' => 'imageBanner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_talks_bl_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url'],
+                    ['key' => 'field_las_talks_bl_label', 'label' => 'Label Link', 'name' => 'labelLink', 'type' => 'text'],
+                ],
+            ]
+        ],
+        'location' => [
+            [['param' => 'page', 'operator' => '==', 'value' => las_get_page_id_by_slug('las-talks')]],
+        ],
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'pageLasTalks',
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_las_xperience_acf',
+        'title' => 'Page - LAS Xperience Fields',
+        'fields' => [
+            [
+                'key' => 'field_las_xperience_how',
+                'label' => 'How We Do It Today',
+                'name' => 'howWeDoItToday',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_xperience_how_banner', 'label' => 'Banner', 'name' => 'banner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_xperience_how_logo', 'label' => 'Logo', 'name' => 'logo', 'type' => 'image', 'return_format' => 'url'],
+                    [
+                        'key' => 'field_las_xperience_how_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_xperience_how_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_xperience_how_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url']
+                ],
+            ],
+            [
+                'key' => 'field_las_xperience_banner_las',
+                'label' => 'Banner LAS',
+                'name' => 'bannerLas',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_xperience_bl_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                    [
+                        'key' => 'field_las_xperience_bl_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_xperience_bl_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_xperience_bl_img', 'label' => 'Image', 'name' => 'imageBanner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_xperience_bl_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url'],
+                    ['key' => 'field_las_xperience_bl_label', 'label' => 'Label Link', 'name' => 'labelLink', 'type' => 'text'],
+                ],
+            ]
+        ],
+        'location' => [
+            [['param' => 'page', 'operator' => '==', 'value' => las_get_page_id_by_slug('las-xperience')]],
+        ],
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'pageLasXperience',
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_las_xperts_acf',
+        'title' => 'Page - LAS Xperts Fields',
+        'fields' => [
+            [
+                'key' => 'field_las_xperts_how',
+                'label' => 'How We Do It Today',
+                'name' => 'howWeDoItToday',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_xperts_how_banner', 'label' => 'Banner', 'name' => 'banner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_xperts_how_logo', 'label' => 'Logo', 'name' => 'logo', 'type' => 'image', 'return_format' => 'url'],
+                    [
+                        'key' => 'field_las_xperts_how_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_xperts_how_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_xperts_how_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url']
+                ],
+            ],
+            [
+                'key' => 'field_las_xperts_banner_las',
+                'label' => 'Banner LAS',
+                'name' => 'bannerLas',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_las_xperts_bl_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                    [
+                        'key' => 'field_las_xperts_bl_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_las_xperts_bl_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_las_xperts_bl_img', 'label' => 'Image', 'name' => 'imageBanner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_las_xperts_bl_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url'],
+                    ['key' => 'field_las_xperts_bl_label', 'label' => 'Label Link', 'name' => 'labelLink', 'type' => 'text'],
+                ],
+            ]
+        ],
+        'location' => [
+            [['param' => 'page', 'operator' => '==', 'value' => las_get_page_id_by_slug('las-xperts')]],
+        ],
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'pageLasXperts',
+    ]);
+
 endif;
