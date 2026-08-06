@@ -396,6 +396,7 @@ function las_wp_auto_create_pages()
         'Articulate the Ecosystem' => 'articulate-the-ecosystem',
         'Budget Request' => 'budget-request',
         'Certificado' => 'certificado',
+        'Educação' => 'educacao',
         'Eventos' => 'eventos',
         'Generate Health' => 'generate-health',
         'Instruções de Uso dos Produtos' => 'instrucoes-de-uso-dos-produtos',
