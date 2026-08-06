@@ -1,5 +1,6 @@
 <?php
 
+add_action('acf/init', function() {
 if (function_exists('acf_add_local_field_group')):
 
     /**
@@ -684,4 +685,59 @@ if (function_exists('acf_add_local_field_group')):
         'graphql_field_name' => 'pageLasXperts',
     ]);
 
+
+    acf_add_local_field_group([
+        'key' => 'group_educacao_acf',
+        'title' => 'Page - Educação Fields',
+        'fields' => [
+            [
+                'key' => 'field_educacao_how',
+                'label' => 'How We Do It Today',
+                'name' => 'howWeDoItToday',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_educacao_how_banner', 'label' => 'Banner', 'name' => 'banner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_educacao_how_logo', 'label' => 'Logo', 'name' => 'logo', 'type' => 'image', 'return_format' => 'url'],
+                    [
+                        'key' => 'field_educacao_how_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_educacao_how_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_educacao_how_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url']
+                ],
+            ],
+            [
+                'key' => 'field_educacao_banner_las',
+                'label' => 'Banner LAS',
+                'name' => 'bannerLas',
+                'type' => 'group',
+                'sub_fields' => [
+                    ['key' => 'field_educacao_bl_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text'],
+                    [
+                        'key' => 'field_educacao_bl_desc',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'repeater',
+                        'sub_fields' => [
+                            ['key' => 'field_educacao_bl_desc_text', 'label' => 'Paragraph', 'name' => 'text', 'type' => 'textarea']
+                        ]
+                    ],
+                    ['key' => 'field_educacao_bl_img', 'label' => 'Image', 'name' => 'imageBanner', 'type' => 'image', 'return_format' => 'url'],
+                    ['key' => 'field_educacao_bl_link', 'label' => 'Link', 'name' => 'link', 'type' => 'url'],
+                    ['key' => 'field_educacao_bl_label', 'label' => 'Label Link', 'name' => 'labelLink', 'type' => 'text'],
+                ],
+            ]
+        ],
+        'location' => [
+            [['param' => 'page', 'operator' => '==', 'value' => las_get_page_id_by_slug('educacao')]],
+        ],
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'pageEducacao',
+    ]);
+
 endif;
+});
