@@ -231,6 +231,13 @@ if (function_exists('acf_add_local_field_group')):
                 ],
                 'show_in_graphql' => 1,
             ],
+            [
+                'key' => 'field_product_sources',
+                'label' => 'Referências',
+                'name' => 'sources',
+                'type' => 'wysiwyg',
+                'show_in_graphql' => 1,
+            ],
         ],
         'location' => [
             [
