@@ -113,6 +113,41 @@ if (function_exists('acf_add_local_field_group')):
                 'show_in_graphql' => 1,
             ],
             [
+                'key' => 'field_product_technical_data_2',
+                'label' => 'Technical Data 2',
+                'name' => 'technicalData2',
+                'type' => 'repeater',
+                'layout' => 'table',
+                'button_label' => 'Add row',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_product_technical_data_2_col1',
+                        'label' => 'Column 1',
+                        'name' => 'col1',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_product_technical_data_2_col2',
+                        'label' => 'Column 2',
+                        'name' => 'col2',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_product_technical_data_2_col3',
+                        'label' => 'Column 3',
+                        'name' => 'col3',
+                        'type' => 'text',
+                    ],
+                    [
+                        'key' => 'field_product_technical_data_2_col4',
+                        'label' => 'Column 4',
+                        'name' => 'col4',
+                        'type' => 'text',
+                    ],
+                ],
+                'show_in_graphql' => 1,
+            ],
+            [
                 'key' => 'field_product_pictures',
                 'label' => 'Pictures',
                 'name' => 'pictures',
