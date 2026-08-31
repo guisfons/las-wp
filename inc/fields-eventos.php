@@ -49,7 +49,8 @@ if (function_exists('acf_add_local_field_group')):
                 'type' => 'select',
                 'instructions' => 'Define se é um evento próprio ou uma feira patrocinada',
                 'choices' => array(
-                    'autoral' => 'Evento Autoral (Jantar, Curso, Congresso...)',
+                    'autoral' => 'Evento Autoral (Jantar, Congresso...)',
+                    'educacional' => 'Evento Educacional (Curso, Workshop...)',
                     'feira' => 'Feira Patrocinada (com estande)',
                 ),
                 'default_value' => 'autoral',
@@ -145,6 +146,34 @@ if (function_exists('acf_add_local_field_group')):
                 'required' => 0,
             ),
             array(
+                'key' => 'field_evento_address_street',
+                'label' => 'Rua',
+                'name' => 'address_street',
+                'type' => 'text',
+                'required' => 0,
+            ),
+            array(
+                'key' => 'field_evento_address_number',
+                'label' => 'Número',
+                'name' => 'address_number',
+                'type' => 'text',
+                'required' => 0,
+            ),
+            array(
+                'key' => 'field_evento_address_city',
+                'label' => 'Cidade',
+                'name' => 'address_city',
+                'type' => 'text',
+                'required' => 0,
+            ),
+            array(
+                'key' => 'field_evento_address_state',
+                'label' => 'Estado',
+                'name' => 'address_state',
+                'type' => 'text',
+                'required' => 0,
+            ),
+            array(
                 'key' => 'field_evento_map_embed_url',
                 'label' => 'URL do Google Maps Embed',
                 'name' => 'map_embed_url',
@@ -199,6 +228,14 @@ if (function_exists('acf_add_local_field_group')):
             ),
 
             // ─── Informações de Feira ───────────────────────────────────────
+            array(
+                'key' => 'field_evento_booth_pavilion',
+                'label' => 'Pavilhão',
+                'name' => 'booth_pavilion',
+                'type' => 'text',
+                'instructions' => 'Ex: Pavilhão Azul',
+                'required' => 0,
+            ),
             array(
                 'key' => 'field_evento_booth_number',
                 'label' => 'Número do Estande',
