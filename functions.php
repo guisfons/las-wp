@@ -60,6 +60,9 @@ add_action('after_setup_theme', 'las_wp_setup');
  */
 function las_wp_set_headless_preview_link($link, $post)
 {
+    if (!$post || !is_object($post) || !isset($post->ID)) {
+        return $link;
+    }
     $frontend_url = 'http://localhost:3000';
 
     return sprintf(
@@ -203,7 +206,7 @@ function las_wp_register_cpts()
         'hierarchical' => false,
         'menu_position' => null,
         'menu_icon' => 'dashicons-calendar-alt',
-        'supports' => array('title', 'thumbnail', 'page-attributes'),
+        'supports' => array('title', 'editor', 'excerpt', 'thumbnail', 'page-attributes'),
         'show_in_graphql' => true,
         'graphql_single_name' => 'evento',
         'graphql_plural_name' => 'eventos',
@@ -376,10 +379,19 @@ add_action('init', 'las_wp_register_cpts', 0);
 /**
  * Register ACF Fields
  */
-require_once get_template_directory() . '/inc/fields-product.php';
-require_once get_template_directory() . '/inc/fields-pages.php';
-require_once get_template_directory() . '/inc/fields-eventos.php';
-require_once get_template_directory() . '/inc/fields-midia.php';
+$las_inc_files = array(
+    '/inc/fields-product.php',
+    '/inc/fields-pages.php',
+    '/inc/fields-eventos.php',
+    '/inc/fields-midia.php',
+    '/inc/fields-blog.php',
+);
+foreach ($las_inc_files as $file) {
+    $filepath = get_template_directory() . $file;
+    if (file_exists($filepath)) {
+        require_once $filepath;
+    }
+}
 
 /**
  * Auto Create Necessary Headless Pages
@@ -413,16 +425,15 @@ function las_wp_auto_create_pages()
     );
 
     foreach ($pages_to_create as $page_title => $page_slug) {
-        // Check if page already exists
-        $page_check = get_page_by_title($page_title);
+        $existing = get_page_by_path($page_slug, OBJECT, 'page');
 
-        if (!isset($page_check->ID)) {
+        if (!$existing) {
             $page_data = array(
-                'post_title' => $page_title,
-                'post_name' => $page_slug,
+                'post_title'  => $page_title,
+                'post_name'   => $page_slug,
                 'post_status' => 'publish',
-                'post_type' => 'page',
-                'post_author' => 1, // Usually admin ID
+                'post_type'   => 'page',
+                'post_author' => 1,
             );
 
             wp_insert_post($page_data);
@@ -457,8 +468,10 @@ add_action('acf/init', 'las_wp_register_acf_options_pages');
  */
 function las_wp_trigger_nextjs_revalidation($post_id) {
     // Prevent triggering on autosaves or revisions
-    if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
-        return;
+    if (is_numeric($post_id)) {
+        if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
+            return;
+        }
     }
 
     $frontend_url = 'https://lasbrasil.com.br';
