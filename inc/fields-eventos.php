@@ -42,20 +42,7 @@ if (function_exists('acf_add_local_field_group')):
                 'default_value' => 'quadrada',
                 'return_format' => 'value',
             ),
-            array(
-                'key' => 'field_evento_type',
-                'label' => 'Tipo de Evento',
-                'name' => 'event_type',
-                'type' => 'select',
-                'instructions' => 'Define se é um evento próprio ou uma feira patrocinada',
-                'choices' => array(
-                    'autoral' => 'Evento Autoral (Jantar, Congresso...)',
-                    'educacional' => 'Evento Educacional (Curso, Workshop...)',
-                    'feira' => 'Feira Patrocinada (com estande)',
-                ),
-                'default_value' => 'autoral',
-                'return_format' => 'value',
-            ),
+
             array(
                 'key' => 'field_evento_format',
                 'label' => 'Formato do Evento',

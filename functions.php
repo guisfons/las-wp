@@ -246,6 +246,37 @@ function las_wp_register_cpts()
     register_taxonomy('categoria_evento', array('evento'), $args_cat_evento);
 
     // ==========================================
+    // Taxonomia: Segmento do Evento
+    // ==========================================
+    $labels_seg_evento = array(
+        'name' => _x('Segmentos do Evento', 'taxonomy general name', 'las-wp'),
+        'singular_name' => _x('Segmento do Evento', 'taxonomy singular name', 'las-wp'),
+        'search_items' => __('Procurar Segmentos', 'las-wp'),
+        'all_items' => __('Todos os Segmentos', 'las-wp'),
+        'parent_item' => __('Segmento Pai', 'las-wp'),
+        'parent_item_colon' => __('Segmento Pai:', 'las-wp'),
+        'edit_item' => __('Editar Segmento', 'las-wp'),
+        'update_item' => __('Atualizar Segmento', 'las-wp'),
+        'add_new_item' => __('Adicionar Novo Segmento', 'las-wp'),
+        'new_item_name' => __('Novo Segmento', 'las-wp'),
+        'menu_name' => __('Segmentos', 'las-wp'),
+    );
+
+    $args_seg_evento = array(
+        'hierarchical' => true,
+        'labels' => $labels_seg_evento,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'segmento-evento'),
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'eventoSegmento',
+        'graphql_plural_name' => 'eventoSegmentos',
+    );
+
+    register_taxonomy('segmento_evento', array('evento'), $args_seg_evento);
+
+    // ==========================================
     // Taxonomia: Product Specialities
     // ==========================================
     $args_product_speciality = array(
